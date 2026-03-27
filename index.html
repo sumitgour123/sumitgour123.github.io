@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Good Luck Website</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #ffcc70, #ff8177);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            color: #333;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            background-color: #ff5722;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #e64a19;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>✨ Welcome to 10 Rupees Good Luck Website ✨</h1>
+    <p>Pay ₹10 and receive good luck instantly!</p>
+    <button onclick="goToQR()">Pay Now</button>
+</div>
+
+<script>
+    function goToQR() {
+        window.location.href = "qr.html";
+    }
+</script>
+
+</body>
+</html>
