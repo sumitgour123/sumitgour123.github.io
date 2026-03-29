@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SkyLine Airlines</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    header {
+        background: #002147;
+        color: white;
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    nav a {
+        color: white;
+        margin: 10px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .hero {
+        background: url('https://images.unsplash.com/photo-1504196606672-aef5c9cefc92') no-repeat center/cover;
+        height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 28px;
+        text-align: center;
+    }
+
+    .booking {
+        background: #f4f4f4;
+        padding: 20px;
+        text-align: center;
+    }
+
+    input, select {
+        padding: 10px;
+        margin: 8px;
+        width: 200px;
+    }
+
+    button {
+        padding: 10px 20px;
+        background: #002147;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #004080;
+    }
+
+    footer {
+        background: #002147;
+        color: white;
+        text-align: center;
+        padding: 10px;
+    }
+
+    @media(max-width: 600px) {
+        input, select {
+            width: 90%;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<header>
+    <h2>SkyLine Airlines</h2>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+</header>
+
+<div class="hero">
+    Book Your Flight Now ✈️
+</div>
+
+<div class="booking">
+    <h2>Flight Booking</h2>
+
+    <input type="text" id="from" placeholder="From">
+    <input type="text" id="to" placeholder="To"><br>
+
+    <input type="date" id="date">
+    <select id="class">
+        <option>Economy</option>
+        <option>Business</option>
+    </select><br>
+
+    <button onclick="bookFlight()">Book Now</button>
+
+    <p id="result"></p>
+</div>
+
+<footer>
+    Contact: 8000993480
+</footer>
+
+<script>
+function bookFlight() {
+    let from = document.getElementById("from").value;
+    let to = document.getElementById("to").value;
+
+    if(from === "" || to === "") {
+        document.getElementById("result").innerHTML = "Please fill all fields!";
+    } else {
+        document.getElementById("result").innerHTML =
+        "Flight booked from " + from + " to " + to + " ✈️";
+    }
+}
+</script>
+
+</body>
+</html>
