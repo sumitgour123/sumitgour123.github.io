@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Contact - SkyLine Airlines</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #f4f4f4;
+}
+
+header {
+    background: #002147;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+nav a {
+    color: white;
+    margin-left: 15px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.container {
+    padding: 30px;
+    text-align: center;
+}
+
+input, textarea {
+    padding: 10px;
+    margin: 10px;
+    width: 250px;
+}
+
+button {
+    padding: 10px 20px;
+    background: #002147;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #004080;
+}
+
+footer {
+    background: #002147;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h2>SkyLine Airlines ✈️</h2>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h2>Contact Us</h2>
+
+    <input type="text" id="name" placeholder="Your Name"><br>
+    <textarea id="message" placeholder="Your Message"></textarea><br>
+
+    <button onclick="sendMessage()">Send</button>
+
+    <p id="response"></p>
+</div>
+
+<footer>
+    Contact: 8000993480
+</footer>
+
+<script>
+function sendMessage() {
+    let name = document.getElementById("name").value;
+    let message = document.getElementById("message").value;
+
+    if(name === "" || message === "") {
+        alert("Please fill all fields!");
+        return;
+    }
+
+    let contactData = {
+        name,
+        message
+    };
+
+    // Save in LocalStorage
+    localStorage.setItem("contact", JSON.stringify(contactData));
+
+    document.getElementById("response").innerHTML =
+        "Thank you " + name + "! Your message has been saved.";
+
+    // Clear fields
+    document.getElementById("name").value = "";
+    document.getElementById("message").value = "";
+}
+</script>
+
+</body>
+</html>
