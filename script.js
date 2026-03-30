@@ -141,11 +141,20 @@ function gameLoop() {
 // Game Over
 function gameOver() {
     gameRunning = false;
+
+    // Background music band
     bgMusic.pause();
+
+    // 🔊 Game over sound fix
+    overSound.currentTime = 0;
     overSound.play();
 
+    // Coins save
     localStorage.setItem("coins", totalCoins);
 
-    alert("Game Over 💀\nScore: " + score + "\nCoins: " + totalCoins);
-    location.reload();
+    // Thoda delay taaki sound play ho jaye
+    setTimeout(() => {
+        alert("Game Over 💀\nScore: " + score + "\nCoins: " + totalCoins);
+        location.reload();
+    }, 500);
 }
