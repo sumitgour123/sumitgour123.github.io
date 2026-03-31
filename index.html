@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart AI Study Assistant - Sumit Gour</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: #0f172a;
+    color: white;
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+    background: #020617;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.chat-box {
+    width: 95%;
+    max-width: 800px;
+    background: #1e293b;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+#chat {
+    height: 350px;
+    overflow-y: auto;
+}
+
+.message {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.user {
+    background: #2563eb;
+    text-align: right;
+}
+
+.ai {
+    background: #334155;
+}
+
+.input-area {
+    display: flex;
+    margin-top: 10px;
+}
+
+input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+button {
+    padding: 10px;
+    margin-left: 5px;
+    background: #22c55e;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #16a34a;
+}
+
+.tools {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.tool-btn {
+    margin: 5px;
+    padding: 10px 15px;
+    background: #3b82f6;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.tool-btn:hover {
+    background: #2563eb;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+    background: #020617;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Smart AI Study Assistant</h1>
+    <p>Created by <strong>Sumit Gour</strong></p>
+</header>
+
+<div class="container">
+    <div class="chat-box">
+        <div id="chat"></div>
+
+        <div class="input-area">
+            <input type="text" id="question" placeholder="Ask your question...">
+            <button onclick="askAI()">Send</button>
+        </div>
+
+        <div class="tools">
+            <div class="tool-btn" onclick="generateNotes()">📘 Notes</div>
+            <div class="tool-btn" onclick="generateQuiz()">🧠 Quiz</div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>© 2026 Sumit Gour | Smart AI Assistant</p>
+</footer>
+
+<script>
+// AI RESPONSE SYSTEM
+function getAIResponse(input) {
+    input = input.toLowerCase();
+
+    if (input.includes("math")) {
+        return "Math: Focus on formulas and solve at least 5 problems daily. Practice is key!";
+    }
+
+    if (input.includes("science")) {
+        return "Science: Understand concepts instead of memorizing. Use diagrams and examples.";
+    }
+
+    if (input.includes("history")) {
+        return "History: Learn using timelines and stories. It helps in remembering dates easily.";
+    }
+
+    if (input.includes("english")) {
+        return "English: Improve vocabulary and read daily to enhance understanding.";
+    }
+
+    if (input.includes("computer")) {
+        return "Computer: Practice coding daily and understand logic step by step.";
+    }
+
+    return "I'm your smart AI assistant 🤖. Ask about subjects or use tools below!";
+}
+
+// CHAT FUNCTION
+function askAI() {
+    let input = document.getElementById("question");
+    let chat = document.getElementById("chat");
+
+    let question = input.value;
+    if (!question) return;
+
+    chat.innerHTML += `<div class="message user">${question}</div>`;
+
+    let response = getAIResponse(question);
+    chat.innerHTML += `<div class="message ai">${response}</div>`;
+
+    input.value = "";
+    chat.scrollTop = chat.scrollHeight;
+}
+
+// NOTES GENERATOR
+function generateNotes() {
+    let chat = document.getElementById("chat");
+
+    let notes = `
+📘 Notes Tips:
+- Break topics into small parts
+- Use bullet points
+- Revise daily
+- Highlight important formulas
+    `;
+
+    chat.innerHTML += `<div class="message ai">${notes}</div>`;
+    chat.scrollTop = chat.scrollHeight;
+}
+
+// QUIZ GENERATOR
+function generateQuiz() {
+    let chat = document.getElementById("chat");
+
+    let quiz = `
+🧠 Quick Quiz:
+1. What is 2 + 2?
+2. Who discovered gravity?
+3. What is H2O?
+4. Capital of India?
+    `;
+
+    chat.innerHTML += `<div class="message ai">${quiz}</div>`;
+    chat.scrollTop = chat.scrollHeight;
+}
+</script>
+
+</body>
+</html>
