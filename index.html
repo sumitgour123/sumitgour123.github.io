@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kamla Horror Game</title>
+
+<style>
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: Arial;
+  background: black;
+  color: white;
+}
+
+#startScreen, #gameOver {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  padding: 12px 25px;
+  font-size: 18px;
+  margin-top: 20px;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+}
+
+#gameCanvas {
+  display: none;
+  background: url("https://i.imgur.com/8Q1ZQZg.jpg") no-repeat center;
+  background-size: cover;
+}
+
+#flashlight {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(0,0,0,0.95) 70%);
+}
+
+#score {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="startScreen">
+  <h1>👻 Kamla Horror Game</h1>
+  <button onclick="startGame()">Start Game</button>
+</div>
+
+<div id="gameOver" style="display:none;">
+  <h1>💀 Game Over</h1>
+  <button onclick="location.reload()">Restart</button>
+</div>
+
+<canvas id="gameCanvas"></canvas>
+<div id="flashlight"></div>
+<div id="score">Items: 0 / 5</div>
+
+<audio id="bgSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_7c9c7d65c8.mp3" loop></audio>
+<audio id="scareSound" src="https://cdn.pixabay.com/audio/2022/03/10/audio_2b1a4b4b6c.mp3"></audio>
+
+<script>
+let canvas = document.getElementById("gameCanvas");
+let ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let player = { x: 100, y: 100, size: 20 };
+let keys = {};
+let items = [];
+let collected = 0;
+
+function startGame() {
+  document.getElementById("startScreen").style.display = "none";
+  canvas.style.display = "block";
+  document.getElementById("bgSound").play();
+
+  spawnItems();
+  gameLoop();
+}
+
+function spawnItems() {
+  for (let i = 0; i < 5; i++) {
+    items.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      size: 15
+    });
+  }
+}
+
+document.addEventListener("keydown", (e) => keys[e.key] = true);
+document.addEventListener("keyup", (e) => keys[e.key] = false);
+
+function movePlayer() {
+  if (keys["w"] || keys["ArrowUp"]) player.y -= 4;
+  if (keys["s"] || keys["ArrowDown"]) player.y += 4;
+  if (keys["a"] || keys["ArrowLeft"]) player.x -= 4;
+  if (keys["d"] || keys["ArrowRight"]) player.x += 4;
+}
+
+function checkCollision() {
+  items = items.filter(item => {
+    let dx = player.x - item.x;
+    let dy = player.y - item.y;
+    let dist = Math.sqrt(dx*dx + dy*dy);
+
+    if (dist < 20) {
+      collected++;
+      document.getElementById("score").innerText = `Items: ${collected} / 5`;
+
+      if (collected === 5) {
+        jumpScare();
+      }
+      return false;
+    }
+    return true;
+  });
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  ctx.fillStyle = "red";
+  ctx.fillRect(player.x, player.y, player.size, player.size);
+
+  ctx.fillStyle = "yellow";
+  items.forEach(item => {
+    ctx.fillRect(item.x, item.y, item.size, item.size);
+  });
+}
+
+function gameLoop() {
+  movePlayer();
+  checkCollision();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+function jumpScare() {
+  document.getElementById("scareSound").play();
+
+  document.body.innerHTML += `
+    <img src="https://i.imgur.com/Z6XKQ7C.png"
+    style="position:absolute;width:100%;height:100%;top:0;left:0;">
+  `;
+
+  setTimeout(() => {
+    document.getElementById("gameOver").style.display = "flex";
+  }, 1500);
+}
+
+document.addEventListener("mousemove", e => {
+  let light = document.getElementById("flashlight");
+  light.style.left = e.pageX - 100 + "px";
+  light.style.top = e.pageY - 100 + "px";
+});
+</script>
+
+</body>
+  </html>
